@@ -40,3 +40,6 @@ class EVMBenchUser(BaseBenchUser):
             self.test_data.get_random_account(),
             self.test_data.get_random_block_number_hex(),
         ]
+    
+    def _block_receipt_params_factory(self):
+        return [self.test_data.get_random_recent_block_number_hex()]
