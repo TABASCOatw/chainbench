@@ -24,12 +24,19 @@ class EthereumHeavyProfile(EVMBenchUser):
             method="trace_block",
             params=self._block_by_number_params_factory(),
         ),
-
-    @tag("get-logs")
+        
     @task
-    def get_logs_task(self):
+    def get_block_by_number_task(self):
         self.make_call(
-            name="get_logs",
-            method="eth_getLogs",
-            params=self._get_logs_params_factory(),
+            name="get_block_by_number",
+            method="eth_getBlockByNumber",
+            params=self._block_by_number_params_factory(),
         ),
+        
+    @task
+    def get_block_receipts(self):
+        self.make_call(
+            name="get_block_receipts",
+            method="eth_getBlockReceipts",
+            params=self._block_receipts_params_factory(),
+        ),   
