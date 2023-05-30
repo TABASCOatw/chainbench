@@ -9,18 +9,17 @@ from chainbench.util.notify import NoopNotifier, Notifier
 def get_base_path(src_path: str | Path) -> Path:
     """Get base path."""
     curr_path = Path(src_path).resolve()
-    base_path = curr_path.parent / "profile"
-    return base_path
+    return curr_path.parent / "profile"
 
 
 def get_profile_path(base_path: Path, profile: str) -> Path:
     """Get profile path."""
     subdir, _, profile = profile.rpartition(".")
-    if subdir:
-        profile_path = base_path / subdir / f"{profile}.py"
-    else:
-        profile_path = base_path / f"{profile}.py"
-    return profile_path
+    return (
+        base_path / subdir / f"{profile}.py"
+        if subdir
+        else base_path / f"{profile}.py"
+    )
 
 
 def generate_unique_dir_name() -> str:
@@ -71,7 +70,7 @@ def get_master_command(
     if headless:
         command += " --headless"
 
-    if len(exclude_tags) > 0:
+    if exclude_tags:
         command += f" --exclude-tags {' '.join(exclude_tags)}"
 
     return command
@@ -100,7 +99,7 @@ def get_worker_command(
     if headless:
         command += " --headless"
 
-    if len(exclude_tags) > 0:
+    if exclude_tags:
         command += f" --exclude-tags {' '.join(exclude_tags)}"
 
     return command

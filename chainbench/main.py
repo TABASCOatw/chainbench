@@ -160,11 +160,9 @@ def start(
 
     custom_exclude_tags: list[str] = []
     if exclude_tags:
-        for tag in exclude_tags:
-            custom_exclude_tags.append(tag)
-
+        custom_exclude_tags.extend(iter(exclude_tags))
     if not debug_trace_methods:
-        custom_exclude_tags = custom_exclude_tags + ["trace", "debug"]
+        custom_exclude_tags += ["trace", "debug"]
 
     # Start the Locust master
     master_command = get_master_command(
