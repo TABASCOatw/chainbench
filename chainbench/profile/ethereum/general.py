@@ -15,13 +15,12 @@ pie title Methods Distribution
     "Others" : 12
 ```
 """
-from locust import constant_pacing, tag, task
+from locust import tag, task
 
 from chainbench.user.evm import EVMBenchUser
 
 
 class EthereumProfile(EVMBenchUser):
-    wait_time = constant_pacing(2)
     weight = 487
 
     @task(100)
