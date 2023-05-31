@@ -22,7 +22,7 @@ class EthereumTracingErigonProfile(EVMBenchUser):
         self.make_call(
             name="trace_block",
             method="trace_block",
-            params=self._block_receipts_params_factory(),  # If the factory doesn't work use ["latest"]
+            params=['latest'],  # If the factory doesn't work use ["latest"]
         ),
         
     @task
