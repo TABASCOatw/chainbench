@@ -38,5 +38,5 @@ class EthereumTracingErigonProfile(EVMBenchUser):
         self.make_call(
             name="get_block_receipts",
             method="eth_getBlockReceipts",
-            params=self._block_receipts_params_factory(),
+            params=['latest'],
         ),   
