@@ -15,16 +15,13 @@ pie title Methods Distribution
     "Others" : 12
 ```
 """
-from locust import constant_pacing, tag, task
+from locust import tag, task
 
 from chainbench.user.evm import EVMBenchUser
 
 
 class EthereumProfile(EVMBenchUser):
-    wait_time = constant_pacing(2)
-    weight = 487
-
-    @task(100)
+    @task
     def call_task(self):
         self.make_call(
             name="call",
@@ -38,7 +35,7 @@ class EthereumProfile(EVMBenchUser):
             ],
         ),
 
-    @task(24)
+    @task
     def get_transaction_receipt_task(self):
         self.make_call(
             name="get_transaction_receipt",
@@ -46,7 +43,7 @@ class EthereumProfile(EVMBenchUser):
             params=self._transaction_by_hash_params_factory(),
         ),
 
-    @task(19)
+    @task
     def block_number_task(self):
         self.make_call(
             name="block_number",
@@ -54,7 +51,7 @@ class EthereumProfile(EVMBenchUser):
             params=[],
         ),
 
-    @task(12)
+    @task
     def get_balance_task(self):
         self.make_call(
             name="get_balance",
@@ -62,7 +59,7 @@ class EthereumProfile(EVMBenchUser):
             params=self._get_balance_params_factory_latest(),
         ),
 
-    @task(11)
+    @task
     def chain_id_task(self):
         self.make_call(
             name="chain_id",
@@ -70,7 +67,7 @@ class EthereumProfile(EVMBenchUser):
             params=[],
         ),
 
-    @task(9)
+    @task
     def get_block_by_number_task(self):
         self.make_call(
             name="get_block_by_number",
@@ -78,7 +75,7 @@ class EthereumProfile(EVMBenchUser):
             params=self._block_by_number_params_factory(),
         ),
 
-    @task(8)
+    @task
     def get_transaction_by_hash_task(self):
         self.make_call(
             name="get_transaction_by_hash",
@@ -87,7 +84,7 @@ class EthereumProfile(EVMBenchUser):
         ),
 
     @tag("debug")
-    @task(3)
+    @task
     def trace_transaction_task(self):
         self.make_call(
             name="trace_transaction",
@@ -95,24 +92,10 @@ class EthereumProfile(EVMBenchUser):
             params=[],
         ),
 
-    @task(2)
+    @task
     def client_version_task(self):
         self.make_call(
             name="client_version",
             method="web3_clientVersion",
             params=[],
-        ),
-
-
-class GetLogsProfile(EVMBenchUser):
-    wait_time = constant_pacing(10)
-    weight = 13
-
-    @tag("get-logs")
-    @task
-    def get_logs_task(self):
-        self.make_call(
-            name="get_logs",
-            method="eth_getLogs",
-            params=self._get_logs_params_factory(),
         ),
